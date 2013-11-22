@@ -11,10 +11,10 @@ class Database
 
 
 	def search(roots = [])
-		results = []
-		roots.each do |r|
-			results = results +  Verb.all(root: r)
-		end
+		results = Verb.all(root: roots)
+		# roots.each do |r|
+		# 	results = results +  Verb.all(root: r)
+		# end
 
 		results
 	end
