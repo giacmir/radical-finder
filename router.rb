@@ -9,10 +9,16 @@ get '/' do
 	erb :index
 end
 
-get '/find' do
+post '/find' do
 	content_type :json
 	
-	root = params[:root]
-	roots = Radical::interpolate(root)
-	db.search(roots).to_json
+	data = JSON.parse request.body.read
+
+	root = data['root']
+	unless root.nil?
+		roots = Radical::interpolate(root)
+		db.search(roots).to_json
+	else
+		[].to_json
+	end
 end

@@ -1,2 +1,69 @@
-<h1>Ma guarda un po'</h1>
-<p>Come va?</p>
+<script type="text/javascript">
+	function RadicalController($scope, $http) {
+		var query = $scope.query = {
+			string: ''
+		};
+
+		var results = $scope.results = [];
+
+		var addToQuery = $scope.addToQuery = function(l){
+			if(typeof(query.string) == "undefined"){
+				query.string = '';
+			}
+			query.string = query.string + l;
+		}
+
+		var search = $scope.search = function(){
+			q = query.string;
+
+			$http.post('/find', {root: query.string}).success(function(data) {
+				$scope.results = data;
+			});
+
+		}
+
+	}
+</script>
+<div class="pure-g" data-ng-app data-ng-controller="RadicalController">
+	<div class="pure-u-2-3">
+		<form class="pure-form" action="" >
+			<fieldset>
+				<legend>Cerca per radicali</legend>
+				<input data-ng-model="query.string" type="text" required placeholder="Scrivi qui i radicali"/>
+				<input type="submit" value="Cerca" data-ng-click="search()" class="pure-button pure-button-primary" />
+			</fieldset>
+			<fieldset class="letter-keyboard">
+				<legend>Tastiera</legend>
+				<input type="button" class="pure-button" data-ng-click="addToQuery('א')" value="א" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ב')" value="ב" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ג')" value="ג" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ד')" value="ד" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ה')" value="ה" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ו')" value="ו" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ז')" value="ז" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ח')" value="ח" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ט')" value="ט" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('י')" value="י" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('כ')" value="כ" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ל')" value="ל" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('מ')" value="מ" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('נ')" value="נ" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ס')" value="ס" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ע')" value="ע" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('פ')" value="פ" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('צ')" value="צ" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ק')" value="ק" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ר')" value="ר" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ש')" value="ש" />
+				<input type="button" class="pure-button" data-ng-click="addToQuery('ת')" value="ת" />
+			</fieldset>
+		</form>
+	</div>
+	<div class="pure-u-1-3">
+		<h2>"{{query.string}}"</h2>
+		<ul class="results">
+			<li data-ng-repeat="result in results"><strong>{{result.root}}</strong>: {{result.meaning}}</li>
+		</ul>
+	</div>
+
+</div>
