@@ -5,4 +5,3 @@ class Verb
 	property :root, String
 	property :meaning, String
 end
-

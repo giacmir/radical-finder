@@ -1,9 +1,4 @@
-require 'sinatra'
-require 'json'
-require './radical.rb'
-require './database.rb'
-
-db = Database.new
+db = RadicalFinder::Database.new
 
 get '/' do
 	erb :index
@@ -16,7 +11,7 @@ post '/find' do
 
 	root = data['root']
 	unless root.nil?
-		roots = Radical::interpolate(root)
+		roots = RadicalFinder::Interpolator::interpolate(root)
 		db.search(roots).to_json
 	else
 		[].to_json
